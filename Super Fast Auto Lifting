@@ -1,0 +1,33 @@
+-- Super Fast Auto Lifting Script
+-- Place this in StarterPlayerScripts for client-side execution
+
+-- Variables
+local player = game.Players.LocalPlayer
+local tool = nil
+local liftSpeed = 0.01 -- Super-fast lifting (10ms between lifts)
+
+-- Check if the player has a tool equipped
+local function getTool()
+    if player.Character then
+        for _, item in pairs(player.Character:GetChildren()) do
+            if item:IsA("Tool") then
+                return item
+            end
+        end
+    end
+    return nil
+end
+
+-- Auto lift function
+local function autoLift()
+    while true do
+        tool = getTool()
+        if tool and tool:FindFirstChild("Activate") then
+            tool.Activate:Fire() -- Simulates using the tool
+        end
+        wait(liftSpeed) -- Very short delay for super-fast lifting
+    end
+end
+
+-- Start auto lifting
+autoLift()
